@@ -6,12 +6,16 @@ use Faker\Provider\Base as BaseProvider;
 
 class PicsumProvider extends BaseProvider
 {
-    public static function picsumUrl($width = 640, $height = 480, $id = null, $randomize = true, $gray = false, $blur = null)
+    public static function picsumUrl($width = 640, $height = 480, $id = null, $randomize = true, $gray = false, $blur = null, $static = false)
     {
         $baseUrl = 'https://picsum.photos/';
         $url = '';
         if ($id) {
-            $url = 'id/' . $id;
+            $url = 'id/' . $id . '/';
+        }
+
+        if (!$id && !$randomize && $static) {
+            $url = 'seed/' . uniqid() . '/';
         }
         $url .= "{$width}/{$height}";
 
